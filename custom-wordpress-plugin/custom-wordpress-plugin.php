@@ -2,7 +2,7 @@
 /*
 Plugin Name: Custom Listing Plugin
 Description: Custom plugin for creating listings with taxonomies.
-Version: 2.0
+Version: 2.1
 Author: Jason 
 */
 
@@ -365,28 +365,29 @@ function import_listings_from_csv() {
                         }
 
 
-        // Set custom fields as post meta
-        update_post_meta($post_id, 'listing_id', $listing_id);
-        update_post_meta($post_id, 'price', $price);
-        update_post_meta($post_id, 'currency', $currency);
-        update_post_meta($post_id, 'latitude', $latitude);
-        update_post_meta($post_id, 'longitude', $longitude);
-        update_post_meta($post_id, 'address', $address);
+                            // Set custom fields as post meta
+                            update_post_meta($post_id, 'listing_id', $listing_id);
+                            update_post_meta($post_id, 'price', $price);
+                            update_post_meta($post_id, 'currency', $currency);
+                            update_post_meta($post_id, 'latitude', $latitude);
+                            update_post_meta($post_id, 'longitude', $longitude);
+                            update_post_meta($post_id, 'address', $address);
 
-        update_post_meta($post_id, 'guest', $guest);
-        update_post_meta($post_id, 'no_of_rooms', $no_of_rooms);
-        update_post_meta($post_id, 'no_of_beds', $no_of_beds);
-        update_post_meta($post_id, 'no_of_baths', $no_of_baths);
-        update_post_meta($post_id, 'featured_image_url', $featured_image_url);
+                            update_post_meta($post_id, 'guest', $guest);
+                            update_post_meta($post_id, 'no_of_rooms', $no_of_rooms);
+                            update_post_meta($post_id, 'no_of_beds', $no_of_beds);
+                            update_post_meta($post_id, 'no_of_baths', $no_of_baths);
+                            update_post_meta($post_id, 'featured_image_url', $featured_image_url);
 
-// Import the featured image
-if ( ! empty( $featured_image_url ) ) {
-    $image_id = media_sideload_image( $featured_image_url, $post_id, '', 'id');
-    if ( ! is_wp_error( $image_id ) ) {
-        // Set the featured image   
-        set_post_thumbnail( $post_id, $image_id );
-    }
-}
+                            // Import the featured image
+                            if ( ! empty( $featured_image_url ) ) {
+                                //media_sideload_image returns 2 types of data, you need to change it to id
+                                $image_id = media_sideload_image( $featured_image_url, $post_id, '', 'id'); 
+                                if ( ! is_wp_error( $image_id ) ) {
+                                    // Set the featured image   
+                                    set_post_thumbnail( $post_id, $image_id );
+                                }
+                            }
 
                     }
 
@@ -443,7 +444,7 @@ function custom_listing_import_csv() {
         'Import Listings',
         'Import Listings',
         'manage_options',
-        'custom_listing_import',
+        'custom_listing_import_csv',
         'custom_listing_import_csv_page'
     );
 }
